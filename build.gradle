@@ -39,6 +39,9 @@ jacocoTestReport {
 spotbugs {
     ignoreFailures = true
 }
+pmd {
+    ignoreFailures = true
+}
 
 sonarqube {
   properties {
