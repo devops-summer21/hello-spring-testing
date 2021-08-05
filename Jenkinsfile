@@ -1,3 +1,4 @@
+#!/usr/bin/env groovy
 pipeline {
     agent any
 
@@ -20,7 +21,7 @@ pipeline {
 	stage('Analysis') {
 		parallel {
 			stage('SonarQube Analysis') {
-			    when { expression { true } }
+			    when { expression { false } }
 			    steps {
 				withSonarQubeEnv('local') {
 				    sh "./gradlew sonarqube"
