@@ -4,6 +4,7 @@ pipeline {
 
     stages {
         stage('Test') {
+	    when { expression { false } }
             steps {
                 echo 'Testing...'
                 withGradle {
@@ -29,6 +30,7 @@ pipeline {
 			    }
 			}
 			stage('QA') {
+			    when { expression { false } }
 			    steps {
 				withGradle {
 				    sh './gradlew check'
@@ -71,7 +73,7 @@ pipeline {
         stage('Publish') {
             steps {
                 tag 'docker tag 10.250.0.6:5050/codehead/hello-spring/hello-spring-testing:latest 10.250.0.6:5050/codehead/hello-spring/hello-spring-testing:TESTING-1.0.${BUILD_NUMBER}'
-                withDockerRegistry([url:'10.250.0.6:5050', credentialsId:'dockerCLI' ]) {
+                withDockerRegistry([url:'http://10.250.0.6:5050', credentialsId:'dockerCLI' ]) {
                     sh 'docker push 10.250.0.6:5050/codehead/hello-spring/hello-spring-testing:latest'
 		}
             }
