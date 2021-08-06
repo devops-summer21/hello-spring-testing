@@ -68,6 +68,14 @@ pipeline {
                 }
             }
         }
+        stage('Publish') {
+            steps {
+                tag 'docker tag 10.250.0.6:5050/codehead/hello-spring/hello-spring-testing:latest 10.250.0.6:5050/codehead/hello-spring/hello-spring-testing:TESTING-1.0.${BUILD_NUMBER}'
+                withDockerRegistry([url:'10.250.0.6:5050', credentialsId:'dockerCLI' ]) {
+                    sh 'docker push 10.250.0.6:5050/codehead/hello-spring/hello-spring-testing:latest'
+		}
+            }
+        }
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
